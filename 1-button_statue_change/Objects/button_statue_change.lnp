@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj" 
+TO ".\Objects\button_statue_change" 
+PRINT(".\Listings\button_statue_change.m51") RAMSIZE(256) 
