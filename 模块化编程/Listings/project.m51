@@ -1,0 +1,155 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    02/22/2026  17:41:55  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+D:\KEILC51\C51\BIN\BL51.EXE .\Objects\main.obj, .\Objects\NIXIE.obj, .\Objects\DELAY.obj TO .\Objects\project PRINT (.\L
+>> istings\project.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\main.obj (MAIN)
+  .\Objects\NIXIE.obj (NIXIE)
+  .\Objects\DELAY.obj (DELAY)
+  D:\KEILC51\C51\LIB\C51S.LIB (?C_STARTUP)
+  D:\KEILC51\C51\LIB\C51S.LIB (?C?COPY)
+
+
+LINK MAP OF MODULE:  .\Objects\project (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000CH     UNIT         _DATA_GROUP_
+            IDATA   0014H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     00F6H     UNIT         ?C?LIB_CODE
+            CODE    00F9H     0086H     UNIT         ?PR?_LIGHT_NIXIE?NIXIE
+            CODE    017FH     003AH     UNIT         ?PR?MAIN?MAIN
+            CODE    01B9H     0016H     UNIT         ?PR?_DELAY1MS?DELAY
+            CODE    01CFH     000CH     UNIT         ?C_C51STARTUP
+            CODE    01DBH     000AH     UNIT         ?CO?NIXIE
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\project (MAIN)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN                  -----    -----
+  +--> ?PR?_LIGHT_NIXIE?NIXIE
+
+?PR?_LIGHT_NIXIE?NIXIE         0008H    000CH
+  +--> ?CO?NIXIE
+  +--> ?PR?_DELAY1MS?DELAY
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\project (MAIN)
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  02/22/2026  17:41:55  PAGE 2
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:017FH         PUBLIC        main
+  -------         PROC          MAIN
+  C:017FH         LINE#         5
+  C:017FH         LINE#         6
+  C:017FH         LINE#         7
+  C:017FH         LINE#         8
+  C:017FH         LINE#         9
+  C:0186H         LINE#         10
+  C:018DH         LINE#         11
+  C:0194H         LINE#         12
+  C:019BH         LINE#         13
+  C:01A2H         LINE#         14
+  C:01A9H         LINE#         15
+  C:01B0H         LINE#         16
+  C:01B7H         LINE#         19
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        NIXIE
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  B:00A0H.2       PUBLIC        P2_2
+  B:00A0H.3       PUBLIC        P2_3
+  B:00A0H.4       PUBLIC        P2_4
+  C:01DBH         SYMBOL        _?ix1000
+  C:00F9H         PUBLIC        _light_Nixie
+  -------         PROC          _LIGHT_NIXIE
+  D:0008H         SYMBOL        Position
+  D:0009H         SYMBOL        Number
+  -------         DO            
+  D:000AH         SYMBOL        NumberTable
+  -------         ENDDO         
+  C:00F9H         LINE#         8
+  C:00FDH         LINE#         9
+  C:00FDH         LINE#         11
+  C:0110H         LINE#         22
+  C:013EH         LINE#         23
+  C:013EH         LINE#         24
+  C:0142H         LINE#         25
+  C:0146H         LINE#         26
+  C:014AH         LINE#         27
+  C:014EH         LINE#         28
+  C:0156H         LINE#         29
+  C:015EH         LINE#         30
+  C:0166H         LINE#         31
+  C:016CH         LINE#         34
+  C:016CH         LINE#         36
+  C:0174H         LINE#         37
+  C:017BH         LINE#         38
+  C:017EH         LINE#         40
+  -------         ENDPROC       _LIGHT_NIXIE
+  -------         ENDMOD        NIXIE
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  02/22/2026  17:41:55  PAGE 3
+
+
+
+  -------         MODULE        DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:01B9H         PUBLIC        _Delay1ms
+  -------         PROC          _DELAY1MS
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0005H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:01B9H         LINE#         4
+  C:01B9H         LINE#         5
+  C:01B9H         LINE#         7
+  C:01C3H         LINE#         8
+  C:01C3H         LINE#         9
+  C:01C4H         LINE#         10
+  C:01C6H         LINE#         11
+  C:01C8H         LINE#         13
+  C:01C8H         LINE#         14
+  C:01CAH         LINE#         15
+  C:01CCH         LINE#         16
+  C:01CEH         LINE#         17
+  -------         ENDPROC       _DELAY1MS
+  -------         ENDMOD        DELAY
+
+  -------         MODULE        ?C?COPY
+  C:00D3H         PUBLIC        ?C?COPY
+  -------         ENDMOD        ?C?COPY
+
+Program Size: data=21.0 xdata=0 code=485
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

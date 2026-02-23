@@ -1,0 +1,228 @@
+C51 COMPILER V9.60.7.0   BUZZER                                                            02/23/2026 22:00:11 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE BUZZER
+OBJECT MODULE PLACED IN .\Objects\Buzzer.obj
+COMPILER INVOKED BY: D:\KeilC51\C51\BIN\C51.EXE Buzzer.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\Bu
+                    -zzer.lst) OBJECT(.\Objects\Buzzer.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          
+   4          typedef unsigned char u8;
+   5          typedef unsigned int u16;
+   6          
+   7          //duration :in 120bpm unit is 10us
+   8          #define QUAR  50000
+   9          #define DOTQ  75000L
+  10          #define HALF  100000L
+  11          #define WHOL  200000L
+  12          #define EIGH  25000
+  13          #define DOTE  37500
+  14          #define SIXTE 12500
+  15          #define TRIQUAR 16667
+  16          #define TRIEIGH 8333
+  17          
+  18          //pitch unit is 10us
+  19          #define C3 764
+  20          #define Cs3  722
+  21          #define D3   681
+  22          #define Ds3  643
+  23          #define E3   607
+  24          #define F3   573
+  25          #define Fs3  541     
+  26          #define G3   510     
+  27          #define Gs3  482   
+  28          #define A3   455     
+  29          #define As3  429     
+  30          #define B3   405    
+  31          
+  32          #define C4   382     
+  33          #define Cs4  361     
+  34          #define D4   341     
+  35          #define Ds4  322     
+  36          #define E4   303    
+  37          #define F4   286
+  38          #define Fs4  270    
+  39          #define G4   255    
+  40          #define Gs4  241     
+  41          #define A4   227     
+  42          #define As4  215    
+  43          #define B4   203     
+  44          
+  45          #define C5   191    
+  46          #define Cs5  180     
+  47          #define D5   170     
+  48          #define Ds5  161     
+  49          #define E5   152     
+  50          #define F5   143     
+  51          #define Fs5  135     
+  52          #define G5   128     
+  53          #define Gs5  120     
+  54          #define A5   114     
+C51 COMPILER V9.60.7.0   BUZZER                                                            02/23/2026 22:00:11 PAGE 2   
+
+  55          #define As5  107    
+  56          #define B5   101    
+  57          
+  58          #define REST 0
+  59          
+  60          sbit BEEP=P2^5;
+  61          
+  62          void delay_10us(u16 ten_us)
+  63          {
+  64   1              while (ten_us--);
+  65   1      }
+  66          
+  67          //unit of duration is 10us
+  68          //unit of pitch is 10us
+  69          void note(u16 duration,u16 pitch)
+  70          {
+  71   1      
+  72   1              u16 total_time=0;
+  73   1              if (pitch!=0)
+  74   1              {
+  75   2                      while(total_time < duration)
+  76   2                      {
+  77   3                              BEEP = 1;
+  78   3                              delay_10us(pitch/2);
+  79   3                              BEEP = 0;
+  80   3                              delay_10us(pitch/2);
+  81   3                              total_time += pitch;
+  82   3                      }
+  83   2              }
+  84   1      }
+  85          
+  86          void play_music(u16 (*music)[2])
+  87          {
+  88   1              u16 duration;
+  89   1              u16 pitch;
+  90   1      
+  91   1              u16 (*play)[2] = music;
+  92   1      
+  93   1              while (play[0][0] !=0 || play[0][1] != 0)
+  94   1              {
+  95   2                      duration = play[0][0];
+  96   2                      pitch = play[0][1];
+  97   2                      note(duration, pitch);
+  98   2                      play++;
+  99   2              }
+ 100   1              delay_10us(100);
+ 101   1      }
+ 102          
+ 103          void Delay3000ms(void)  //@11.0592MHz
+ 104          {
+ 105   1              unsigned char data i, j, k;
+ 106   1      
+ 107   1              _nop_();
+ 108   1              _nop_();
+ 109   1              i = 127;
+ 110   1              j = 18;
+ 111   1              k = 107;
+ 112   1              do
+ 113   1              {
+ 114   2                      do
+ 115   2                      {
+ 116   3                              while (--k);
+C51 COMPILER V9.60.7.0   BUZZER                                                            02/23/2026 22:00:11 PAGE 3   
+
+ 117   3                      } while (--j);
+ 118   2              } while (--i);
+ 119   1      }
+ 120          
+ 121          
+ 122          void BuzzerPlay (char YoN)
+ 123          {
+ 124   1              if(YoN)
+ 125   1              {
+ 126   2                      u16 code music[][2] = {
+ 127   2      //Bad Apple!!
+ 128   2      //                      //1
+ 129   2      //                      {EIGH, A3}, {EIGH, B3}, {EIGH, C4}, {EIGH, D4},{QUAR,E4},{EIGH,A4},{EIGH,G4},
+ 130   2      //                      //2
+ 131   2      //                      {QUAR,E4},{QUAR,A3},{EIGH,E4},{EIGH,D4},{EIGH,C4},{EIGH,B3},
+ 132   2      //                      //3
+ 133   2      //                      {EIGH, A3}, {EIGH, B3}, {EIGH, C4}, {EIGH, D4},{QUAR,E4},{EIGH,D4},{EIGH,C4},
+ 134   2      //                      //4
+ 135   2      //                      {EIGH,B3},{EIGH,A3},{EIGH,B3},{EIGH,C4},{EIGH,B3},{EIGH,A3},{EIGH,Gs3},{EIGH,B3},
+ 136   2      //
+ 137   2      
+ 138   2      //                      //5
+ 139   2      //                      {EIGH, A3}, {EIGH, B3}, {EIGH, C4}, {EIGH, D4},{QUAR,E4},{EIGH,A4},{EIGH,G4},
+ 140   2      //                      //6
+ 141   2      //                      {QUAR,E4},{QUAR,A3},{EIGH,E4},{EIGH,D4},{EIGH,C4},{EIGH,B3},
+ 142   2      //                      //7
+ 143   2      //                      {EIGH, A3}, {EIGH, B3}, {EIGH, C4}, {EIGH, D4},{QUAR,E4},{EIGH,D4},{EIGH,C4},
+ 144   2      //                      //8
+ 145   2      //                      {QUAR,B3},{QUAR,C4},{QUAR,D4},{QUAR,E4},
+ 146   2      //
+ 147   2      
+ 148   2      //                      //9
+ 149   2      //                      {EIGH,G4},{EIGH,A4},{EIGH,E4},{EIGH,D4},{QUAR,E4},{EIGH,D4},{EIGH,E4},
+ 150   2      //                      //10
+ 151   2      //                      {EIGH,G4},{EIGH,A4},{EIGH,E4},{EIGH,D4},{QUAR,E4},{EIGH,D4},{EIGH,E4},
+ 152   2      //                      //11
+ 153   2      //                      {EIGH,D4},{EIGH,C4},{EIGH,B3},{EIGH,G3},{QUAR,A3},{EIGH,G3},{EIGH,A3},
+ 154   2      //                      //12
+ 155   2      //                      {EIGH,B3},{EIGH,C4},{EIGH,D4},{EIGH,E4},{QUAR,A3},{EIGH,E4},{EIGH,G4},
+ 156   2      
+ 157   2      
+ 158   2      //                      //13
+ 159   2      //                      {EIGH,G4},{EIGH,A4},{EIGH,E4},{EIGH,D4},{QUAR,E4},{EIGH,D4},{EIGH,E4},
+ 160   2      //                      //14
+ 161   2      //                      {EIGH,G4},{EIGH,A4},{EIGH,E4},{EIGH,D4},{QUAR,E4},{EIGH,A4},{EIGH,B4},
+ 162   2      //                      //15
+ 163   2      //                      {EIGH,C5},{EIGH,B4},{EIGH,A4},{EIGH,G4},{QUAR,E4},{EIGH,D4},{EIGH,E4},
+ 164   2      //                      //16
+ 165   2      //                      {EIGH,D4},{EIGH,C4},{EIGH,B3},{EIGH,G3},{QUAR,A3},
+ 166   2      //
+ 167   2      
+ 168   2      ////新年好
+ 169   2      //                      {EIGH,C4},{EIGH,C4},{QUAR,C4},{QUAR,G3},
+ 170   2      //                      {EIGH,E4},{EIGH,E4},{QUAR,E4},{QUAR,C4},
+ 171   2      //                      {EIGH,C4},{EIGH,E4},{QUAR,G4},{QUAR,G4},
+ 172   2      //                      {EIGH,F4},{EIGH,E4},{QUAR,D4},
+ 173   2      
+ 174   2      //                      {EIGH,D4},{EIGH,E4},{QUAR,F4},{QUAR,F4},
+ 175   2      //                      {EIGH,E4},{EIGH,D4},{QUAR,E4},{QUAR,C4},
+ 176   2      //                      {EIGH,C4},{EIGH,E4},{QUAR,D4},{QUAR,G3},
+ 177   2      //                      {EIGH,B3},{EIGH,D4},{QUAR,C4},
+ 178   2      
+C51 COMPILER V9.60.7.0   BUZZER                                                            02/23/2026 22:00:11 PAGE 4   
+
+ 179   2      //塞尔达传说：获得物品
+ 180   2                  {EIGH,A4},{TRIEIGH,A4},{TRIEIGH,A4},{TRIEIGH,G4},{QUAR,A4},
+ 181   2      
+ 182   2                              {0, 0}
+ 183   2                      };
+ 184   2      
+ 185   2                      play_music(music);
+ 186   2              }
+ 187   1              else
+ 188   1              {
+ 189   2                      u16 code music[][2]= {
+ 190   2                              {SIXTE,G4},{QUAR,C4},
+ 191   2                              {0,0}
+ 192   2                      };
+ 193   2                      play_music(music);
+ 194   2              }
+ 195   1      
+ 196   1      
+ 197   1      
+ 198   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    173    ----
+   CONSTANT SIZE    =     36    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       9
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
