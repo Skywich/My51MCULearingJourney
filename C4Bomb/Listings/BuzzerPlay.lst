@@ -1,0 +1,50 @@
+C51 COMPILER V9.60.7.0   BUZZERPLAY                                                        02/28/2026 16:36:03 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE BUZZERPLAY
+OBJECT MODULE PLACED IN .\Objects\BuzzerPlay.obj
+COMPILER INVOKED BY: D:\KeilC51\C51\BIN\C51.EXE BuzzerPlay.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listing
+                    -s\BuzzerPlay.lst) OBJECT(.\Objects\BuzzerPlay.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          void Delay10us(unsigned char x10us)     //@11.0592MHz
+   4          {
+   5   1              unsigned char data i;
+   6   1              while(x10us--)
+   7   1              {
+   8   2                      i = 2;
+   9   2                      while (--i);            
+  10   2              }
+  11   1      }
+  12          
+  13          
+  14          
+  15          void BuzzerPlay(unsigned int xms)
+  16          {
+  17   1              unsigned int Duration=0;
+  18   1              while(Duration<=xms)
+  19   1              {
+  20   2                      P2_5=1;
+  21   2                      Delay10us(12);
+  22   2                      P2_5=0;
+  23   2                      Delay10us(12);
+  24   2                      Duration+=25;
+  25   2              }
+  26   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     59    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
